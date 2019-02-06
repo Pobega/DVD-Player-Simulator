@@ -5,7 +5,7 @@ function love.load()
 end
 
 function love.update()
-  my_dvdlogo.entity:update()
+  my_dvdlogo:update()
 end
 
 function love.draw()
