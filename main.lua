@@ -1,17 +1,13 @@
-local sprite = require('src.sprite')
-local entity = require('src.entity')
-local my_sprite
-local my_entity
+local dvdlogo = require('src.dvdlogo')
 
 function love.load()
-  my_sprite = sprite.create('assets/dvd_logo.png')
-  my_entity = entity.create(my_sprite, 50, 50)
+  my_dvdlogo = dvdlogo.create()
 end
 
 function love.update()
-  my_entity:update()
+  my_dvdlogo.entity:update()
 end
 
 function love.draw()
-  my_entity:draw()
+  my_dvdlogo.entity:draw()
 end
