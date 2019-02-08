@@ -12,10 +12,10 @@ local entity = require('src.entity')
 local bounce = require('src.bounce')
 
 -----------------------------------------------------------------------
--- Changes associated sprite's color using sprite:changeColor()
+-- Changes associated sprite's color using sprite:mapPixel()
 -----------------------------------------------------------------------
 local function changeColor(self)
-  return -- TODO: call sprite:changeColor() here
+  return -- TODO: call sprite:mapPixel() here
 end
 
 -----------------------------------------------------------------------

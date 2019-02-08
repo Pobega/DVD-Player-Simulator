@@ -17,13 +17,10 @@ end
 
 -----------------------------------------------------------------------
 -- Transform this sprite's color
--- @param r Red value (0-255)
--- @param g Green value (0-255)
--- @param b Blue value (0-255)
--- @param a Alpha value (0-1)
+-- @param func Function to pixel map with (see ImageData.mapPixel)
 -----------------------------------------------------------------------
-local function changeColor(self, r, g, b, a)
-  local imagemap = self.imagedata:mapPixel(r, g, b, a)
+local function mapPixel(self, func)
+  local imagemap = self.imagedata:mapPixel(func)
   self.image:replacePixels(imagemap)
 end
 
