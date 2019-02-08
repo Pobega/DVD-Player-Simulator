@@ -29,6 +29,10 @@ function dvdlogo.create(x, y, x_speed, y_speed)
 
   -- Member values
   inst.sprite = sprite.create('assets/dvd_logo.png')
+
+  x = x or (love.graphics.getWidth() - inst.sprite.image:getWidth()) / 2
+  y = y or (love.graphics.getHeight() - inst.sprite.image:getHeight()) / 2
+
   inst.entity = entity.create(inst.sprite, x, y)
   inst.movement = bounce.init(inst.entity, x_speed, y_speed)
 
