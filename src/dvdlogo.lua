@@ -5,16 +5,16 @@ local entity = require('src.entity')
 local bounce = require('src.bounce')
 
 local function update(self)
-  self.movement:update(self.entity)
+  self.movement:update()
 end
 
-function dvdlogo.create(x, y, speed)
+function dvdlogo.create(x, y, x_speed, y_speed)
   local inst = {}
 
   -- Member values
   inst.sprite = sprite.create('assets/dvd_logo.png')
-  inst.entity = entity.create(inst.sprite, x, y, speed)
-  inst.movement = bounce
+  inst.entity = entity.create(inst.sprite, x, y)
+  inst.movement = bounce.init(inst.entity, x_speed, y_speed)
 
   -- Member methods
   inst.update = update
