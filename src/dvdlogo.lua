@@ -11,7 +11,22 @@ local sprite = require('src.sprite')
 local entity = require('src.entity')
 local bounce = require('src.bounce')
 
+-----------------------------------------------------------------------
+-- Changes associated sprite's color using sprite:changeColor()
+-----------------------------------------------------------------------
+local function changeColor(self)
+  return -- TODO: call sprite:changeColor() here
+end
+
+-----------------------------------------------------------------------
+-- Changes sprite color when bouncing off wall and calls bounce:update
+-----------------------------------------------------------------------
 local function update(self)
+  -- Change sprite color if bouncing off a wall
+  local on_edge = self.movement:onEdge()
+  if on_edge.x or on_edge.y then self:changeColor() end
+
+  -- Update actual (x,y) values
   self.movement:update()
 end
 
@@ -23,8 +38,6 @@ end
 -- @param y_speed Amount of pixels to move on y axis (negative is up)
 -----------------------------------------------------------------------
 function dvdlogo.create(x, y, x_speed, y_speed)
-  -- TODO: pass a callback into bounce for changing the sprite color
-  -- rather than putting it in bounce.
   local inst = {}
 
   -- Member values
@@ -38,6 +51,7 @@ function dvdlogo.create(x, y, x_speed, y_speed)
 
   -- Member methods
   inst.update = update
+  inst.changeColor = changeColor
 
   return inst
 end
