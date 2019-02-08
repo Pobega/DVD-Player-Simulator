@@ -1,5 +1,14 @@
+-- bounce.lua
+--
+-- Movement method to bounce around the screen, stopping when a wall is
+-- hit. Changes associates entity.sprite.image's color when bouncing
+-- off of a wall.
+-----------------------------------------------------------------------
 local bounce = {}
 
+-----------------------------------------------------------------------
+-- Checks if the associated entity is at an edge (x or y axis)
+-----------------------------------------------------------------------
 local function onEdge(self)
   local edges = {x = false, y = false}
 
@@ -13,6 +22,10 @@ local function onEdge(self)
   return edges
 end
 
+-----------------------------------------------------------------------
+-- Negates the entity's speed and recolors its associated sprite if
+-- it's arrived at a wall.
+-----------------------------------------------------------------------
 local function update(self)
   self.entity.x = self.entity.x + self.x_speed
   self.entity.y = self.entity.y + self.y_speed
@@ -21,7 +34,7 @@ local function update(self)
 
   -- If on any edge, change the image color
   if on_edge.x or on_edge.y then
-    -- TODO: Change color
+    -- TODO: Change color here
   end
 
   -- Negate the speed of the edge we hit
@@ -29,6 +42,12 @@ local function update(self)
   if on_edge.y then self.y_speed = -self.y_speed end
 end
 
+-----------------------------------------------------------------------
+-- Bounce movement pattern.
+-- @param entity  The entity bounce controls
+-- @param x_speed Amount of pixels to move on x axis (negative is left)
+-- @param y_speed Amount of pixels to move on y axis (negative is up)
+-----------------------------------------------------------------------
 function bounce.init(entity, x_speed, y_speed)
   inst = {}
 
