@@ -20,8 +20,15 @@ end
 -- @param func Function to pixel map with (see ImageData.mapPixel)
 -----------------------------------------------------------------------
 local function mapPixel(self, func)
+  self:resetImageData()
   self.imagedata:mapPixel(func)
   self.image:replacePixels(self.imagedata)
+end
+
+local function resetImageData(self)
+  -- Set to nil to trigger garbage collection [bootleg free()], unsure if needed?
+  self.imagedata = nil
+  self.imagedata = love.image.newImageData(self.filename)
 end
 
 -----------------------------------------------------------------------
@@ -34,11 +41,13 @@ function sprite.create(file)
   -- Member values
   inst.filename = file
   inst.imagedata = love.image.newImageData(file)
+  inst.imagedata_original = inst.imagedata:getString()
   inst.image = love.graphics.newImage(inst.imagedata)
 
   -- Member methods
   inst.draw = draw
   inst.mapPixel = mapPixel
+  inst.resetImageData = resetImageData
 
   return inst
 end

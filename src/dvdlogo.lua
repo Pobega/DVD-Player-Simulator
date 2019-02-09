@@ -7,10 +7,6 @@
 -----------------------------------------------------------------------
 local dvdlogo = {}
 
-local sprite = require('src.sprite')
-local entity = require('src.entity')
-local bounce = require('src.bounce')
-
 local function randomColor(x, y, r, g, b, a)
   local colors = {}
   --TODO get the color transform to work properly
@@ -21,17 +17,20 @@ local function randomColor(x, y, r, g, b, a)
   colors.green = {r = 0, g = 200, b = 0}
   colors.blue = {r = 0, g = 0, b = 200}
 
-  local color = colors[1]
+  local color = colors.red
   --local color = colors[love.math.random(1,3)]
 
-  r,g,b = color.r, color.g, color.b
+  --r,g,b = color.r, color.g, color.b
+  r = r*2+50
+  g=g*2
+  b=b*229
   return r,g,b,a
 end
 
 -----------------------------------------------------------------------
 -- Changes associated sprite's color using sprite:mapPixel()
 -----------------------------------------------------------------------
-local function changeColor(self)
+local function doColorShift(self)
   self.sprite:mapPixel(randomColor)
 end
 
@@ -41,7 +40,7 @@ end
 local function update(self)
   -- Change sprite color if bouncing off a wall
   local on_edge = self.movement:onEdge()
-  if on_edge.x or on_edge.y then self:changeColor() end
+  if on_edge.x or on_edge.y then self:doColorShift() end
 
   -- Update actual (x,y) values
   self.movement:update()
@@ -57,18 +56,22 @@ end
 function dvdlogo.create(x, y, x_speed, y_speed)
   local inst = {}
 
+  local sprite = require('src.sprite')
+  local entity = require('src.entity')
+  local bounce = require('src.bounce')
+
   -- Member values
   inst.sprite = sprite.create('assets/dvd_logo.png')
-
   -- If no (x,y) is passed in, start in center of screen
   x = x or (love.graphics.getWidth() - inst.sprite.image:getWidth()) / 2
   y = y or (love.graphics.getHeight() - inst.sprite.image:getHeight()) / 2
-
   inst.entity = entity.create(inst.sprite, x, y)
+  -- Movement pattern
   inst.movement = bounce.init(inst.entity, x_speed, y_speed)
 
   -- Member methods
   inst.update = update
+  inst.doColorShift = doColorShift
   inst.changeColor = changeColor
 
   return inst
