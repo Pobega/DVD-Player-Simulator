@@ -8,22 +8,25 @@
 local dvdlogo = {}
 
 local function randomColor(x, y, r, g, b, a)
-  local colors = {}
-  --TODO get the color transform to work properly
-  --     maybe it needs to retain the image's original colors?
+  local colors = {
+    {r*4, g, b}, -- red
+    {r, g*4, b}, -- green
+    {r, g, b*4}  -- blue
+  }
+  -- TODO: the randomization is happening on the pixel level,
+  -- make it random for the entire transform
 
-  -- All colors we can transform to
-  colors.red = {r = 200, g = 0, b = 0}
-  colors.green = {r = 0, g = 200, b = 0}
-  colors.blue = {r = 0, g = 0, b = 200}
+  local color = colors[love.math.random(1,3)]
 
-  local color = colors.red
-  --local color = colors[love.math.random(1,3)]
-
-  --r,g,b = color.r, color.g, color.b
-  r = r*2+50
+  print('input: ', r, g, b, 'output: ', color[1], color[2], color[3])
+  r,g,b = unpack(color)
+  r = color[1]
+  g = color[2]
+  b = color[3]
+  --[[r = r*2+50
   g=g*2
   b=b*229
+  ]]--
   return r,g,b,a
 end
 
