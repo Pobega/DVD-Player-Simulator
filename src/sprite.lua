@@ -25,6 +25,10 @@ local function mapPixel(self, func)
   self.image:replacePixels(self.imagedata)
 end
 
+
+-----------------------------------------------------------------------
+-- Reset self.imagedata to the original image
+-----------------------------------------------------------------------
 local function resetImageData(self)
   -- Set to nil to trigger garbage collection [bootleg free()], unsure if needed?
   self.imagedata = nil
