@@ -11,11 +11,28 @@ local sprite = require('src.sprite')
 local entity = require('src.entity')
 local bounce = require('src.bounce')
 
+local function randomColor(x, y, r, g, b, a)
+  local colors = {}
+  --TODO get the color transform to work properly
+  --     maybe it needs to retain the image's original colors?
+
+  -- All colors we can transform to
+  colors.red = {r = 200, g = 0, b = 0}
+  colors.green = {r = 0, g = 200, b = 0}
+  colors.blue = {r = 0, g = 0, b = 200}
+
+  local color = colors[1]
+  --local color = colors[love.math.random(1,3)]
+
+  r,g,b = color.r, color.g, color.b
+  return r,g,b,a
+end
+
 -----------------------------------------------------------------------
 -- Changes associated sprite's color using sprite:mapPixel()
 -----------------------------------------------------------------------
 local function changeColor(self)
-  return -- TODO: call sprite:mapPixel() here
+  self.sprite:mapPixel(randomColor)
 end
 
 -----------------------------------------------------------------------

@@ -20,8 +20,8 @@ end
 -- @param func Function to pixel map with (see ImageData.mapPixel)
 -----------------------------------------------------------------------
 local function mapPixel(self, func)
-  local imagemap = self.imagedata:mapPixel(func)
-  self.image:replacePixels(imagemap)
+  self.imagedata:mapPixel(func)
+  self.image:replacePixels(self.imagedata)
 end
 
 -----------------------------------------------------------------------
@@ -38,6 +38,7 @@ function sprite.create(file)
 
   -- Member methods
   inst.draw = draw
+  inst.mapPixel = mapPixel
 
   return inst
 end
