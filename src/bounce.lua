@@ -22,12 +22,15 @@ local function onEdge(self)
 end
 
 -----------------------------------------------------------------------
--- Negates the entity's speed to reverse it's movement direction
+-- Moves the entity, and negates its speed if needed to reverse
+-- it's movement direction.
 -----------------------------------------------------------------------
 local function update(self)
+  -- Move by defined speed number of pixels
   self.entity.x = self.entity.x + self.x_speed
   self.entity.y = self.entity.y + self.y_speed
 
+  -- Check if we're on or past the edge
   local on_edge = self:onEdge()
 
   -- Negate the speed of the edge we hit
