@@ -20,11 +20,13 @@ end
 -- @param func Function to pixel map with (see ImageData.mapPixel)
 -----------------------------------------------------------------------
 local function mapPixel(self, func)
+  --[[ We reset the ImageData here instead of just writing the new data
+       in case we are trying to do a color shift off of the original
+       palette.  -]]
   self:resetImageData()
   self.imagedata:mapPixel(func)
   self.image:replacePixels(self.imagedata)
 end
-
 
 -----------------------------------------------------------------------
 -- Reset self.imagedata to the original image

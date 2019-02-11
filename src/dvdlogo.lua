@@ -7,34 +7,38 @@
 -----------------------------------------------------------------------
 local dvdlogo = {}
 
-local function randomColor(x, y, r, g, b, a)
-  local colors = {
-    {r*4, g, b}, -- red
-    {r, g*4, b}, -- green
-    {r, g, b*4}  -- blue
-  }
-  -- TODO: the randomization is happening on the pixel level,
-  -- make it random for the entire transform
+-----------------------------------------------------------------------
+-- Returns a function to pass to sprite:mapPixel for color shifting.
+-----------------------------------------------------------------------
+local function randomColorFunc(self)
+  -- Don't repeat the same color
+  repeat
+    color = love.math.random(1,7)
+  until(color ~= self.lastcolor)
+  self.lastcolor = color
 
-  local color = colors[love.math.random(1,3)]
+  -- TODO: better color list
+  local colors = {{255,0,0}, -- red
+                  {0,255,0}, -- green
+                  {0,0,255}, -- blue
+                  {255,255,0},
+                  {255,0,255},
+                  {0,255,255},
+                  {255,255,255} -- white
+                 }
 
-  print('input: ', r, g, b, 'output: ', color[1], color[2], color[3])
-  r,g,b = unpack(color)
-  r = color[1]
-  g = color[2]
-  b = color[3]
-  --[[r = r*2+50
-  g=g*2
-  b=b*229
-  ]]--
-  return r,g,b,a
+  -- Return the color as a new anonymous function
+  return function(x,y,r,g,b,a)
+           r,g,b = unpack(colors[color])
+           return r,g,b,a
+         end
 end
 
 -----------------------------------------------------------------------
 -- Changes associated sprite's color using sprite:mapPixel()
 -----------------------------------------------------------------------
 local function doColorShift(self)
-  self.sprite:mapPixel(randomColor)
+  self.sprite:mapPixel(self:randomColorFunc())
 end
 
 -----------------------------------------------------------------------
@@ -71,11 +75,12 @@ function dvdlogo.create(x, y, x_speed, y_speed)
   inst.entity = entity.create(inst.sprite, x, y)
   -- Movement pattern
   inst.movement = bounce.init(inst.entity, x_speed, y_speed)
+  inst.lastcolor = nil
 
   -- Member methods
-  inst.update = update
+  inst.randomColorFunc = randomColorFunc
   inst.doColorShift = doColorShift
-  inst.changeColor = changeColor
+  inst.update = update
 
   return inst
 end
