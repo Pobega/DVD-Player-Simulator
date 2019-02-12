@@ -15,6 +15,7 @@ local entity = {}
 -- Call draw on the sprite object associated with this entity.
 -----------------------------------------------------------------------
 local function draw(self)
+  debug.drawXy(self)
   self.sprite:draw(self.x, self.y)
 end
 
