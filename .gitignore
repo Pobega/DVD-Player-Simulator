@@ -1,2 +1,4 @@
 *.swp
 godot/dist
+*/.import/*
+export_presets.cfg
