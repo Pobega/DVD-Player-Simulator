@@ -8,15 +8,21 @@ onready var sprite = get_node("Sprite")
 onready var viewport = get_viewport().get_visible_rect().size
 
 func _ready():
+	# Start in center
+	position = Vector2(viewport.x/2, viewport.y/2)
+
 	# Initialize movement in a random direction
-	var linear_velocity_x = speed
+	var linear_velocity_x = speed*.75
 	var linear_velocity_y = speed
-	
+
 	randomize()
-	if ((randi() % 2) - 1): linear_velocity_x = - speed 
+	if ((randi() % 2) - 1): linear_velocity_x = - speed*.75
 	if ((randi() % 2) - 1): linear_velocity_y = - speed
-	
+
 	set_linear_velocity(Vector2(linear_velocity_x, linear_velocity_y))
+
+func _process(delta):
+	viewport = get_viewport().get_visible_rect().size
 
 func _integrate_forces(state):
 	var transform = state.get_transform()

@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 142.015, 56.0072 )
 
-[node name="DVDLogo" type="RigidBody2D" index="0"]
+[node name="DVDLogo" type="RigidBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -30,19 +30,17 @@ linear_damp = 0.0
 angular_velocity = 0.0
 angular_damp = -1.0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Angular", "Collision", "Linear", "Pickable" ]
+_sections_unfolded = [ "Angular", "Collision", "Linear", "Pickable", "Transform" ]
 speed = 60
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
-scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
 _sections_unfolded = [ "Animation", "Material", "Offset", "Pause", "Region", "Transform", "Visibility", "Z Index" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-scale = Vector2( 1, 1 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Pause", "Transform", "Visibility" ]
 

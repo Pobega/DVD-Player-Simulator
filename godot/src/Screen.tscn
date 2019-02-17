@@ -2,11 +2,10 @@
 
 [ext_resource path="res://src/DVDLogo.tscn" type="PackedScene" id=1]
 
-[node name="Screen" type="Node"]
+[node name="Screen" type="Node" index="0"]
 
 [node name="DVDLogo" parent="." index="0" instance=ExtResource( 1 )]
 
-position = Vector2( 501.625, 274.464 )
-scale = Vector2( 1, 1 )
+position = Vector2( 146, 62 )
 
 
