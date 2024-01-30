@@ -12,9 +12,7 @@ setup(
             'dvd_simulator = load:__main__',
         ],
     },
-    author='Your Name',
-    author_email='your@email.com',
-    description='A DVD Player Simulator using Pygame',
+    description='A DVD Player built using Pygame',
     license='MIT',
     keywords='dvd simulator pygame game',
     classifiers=[
